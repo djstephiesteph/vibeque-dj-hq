@@ -20,7 +20,11 @@ SHEET_ID = "1JkgaBwbmy7iT8iuEaekEIhWMyc4Su35GnFiRqw2pS9Y"
 SHEET_NAME = "Request Log"  # Adjust this if your sheet/tab has a different name
 worksheet = client.open_by_key(SHEET_ID).worksheet(SHEET_NAME)
 data = worksheet.get_all_records()
+
 df = pd.DataFrame(data)
+df.columns = df.columns.str.strip()
+st.write("Columns in sheet:", df.columns.tolist())  # ✅ Debug
+
 
 # --- DEBUG COLUMNS ---
 st.write("🧾 Sheet Columns Detected:", df.columns.tolist())
