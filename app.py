@@ -37,20 +37,20 @@ st.caption(f"Last Sync: {datetime.now().strftime('%A, %B %d, %I:%M %p')}")
 with st.sidebar:
     st.header("🔍 Filters")
     show_only_unplayed = st.checkbox("Only show unplayed")
-    selected_user = st.selectbox("Filter by user", ["All"] + sorted(df["User"].dropna().unique()))
+    selected_user = st.selectbox("Filter by user", ["All"] + sorted(df["Submitted By"].dropna().unique()))
 
 # --- APPLY FILTERS ---
 if show_only_unplayed:
     df = df[df["Status"] != "Played"]
 if selected_user != "All":
-    df = df[df["User"] == selected_user]
+    df = df[df["Submitted By"] == selected_user]
 
 # --- DISPLAY QUEUE ---
 st.subheader("🎶 Request Queue")
 if df.empty:
     st.info("No requests found for this filter.")
 else:
-    styled_df = df[["Timestamp", "User", "Song", "Line Dance Name", "Mood", "Dance Level", "Request Type"]]
+  styled_df = df[["Timestamp", "Submitted By", "Song", "Line Dance Name", "Mood", "Dance Level", "Request Type"]]
     styled_df.index = range(1, len(styled_df) + 1)
     st.dataframe(styled_df, use_container_width=True, height=600)
 
