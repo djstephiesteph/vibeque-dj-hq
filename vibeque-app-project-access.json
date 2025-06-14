@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "vibeque-app-project",
+  "private_key_id": "e7fa1b82ed54d91b4ceaa45dbe2b646b8aa89564",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCsu9ewFC/DwcwW\nF828hNW63rVeJpd2rmI5ljp3MIKIckm536zbj8nQScYFLK+ciBUHmGuQ7MoOk7ML\ngasc/PNIuQjAYT8fDxp/a5TDJKO9EV7YhKTSssAKAgiXqnwK4SzqRTnch1l77dOQ\nc+HHeG/aGx5oKLjRLHT+UAUqve9SIZDojHixVztnx5TPcYA6fSs5gphiw+DuDSVJ\nuD+48d40hWtLDjTDSWKm8bUCsR8RBf+A1UyB8g19h+o41XYLeuov8fjA/p7HVGaB\ngqLDYb55H1i+OQ+MCwOnLY5Ya8E7r7pn6Al9mbKRs/QRSZ1PEckkwDJexTqjl5he\nUl4YROE5AgMBAAECggEAMjlV8AEWmE0vmZbnP7LB8FlUE+GVtbDjp4naSxCkS6cr\nb6utN5P54qGovZVuJE3fC3vSfuuSnqVscGKODdowpMsEU+eSsmWyVy1BLnJnV5CG\n6t66i/bkZqSLugmcko9Bf4aMWeZS6vlORBilo9mNcDXlY/S/NDbAd7dtoS1juhXE\n2H6mB2bF5+sgc4YsxHclplcRuCxnfkiuQ4mtDYtlRgMToujn7b8+jvmBWAISOF80\nmVndVUtyezC/qkRvYG7+JIpVSnSohBsymZ19kUWrXz/QWf49ZiiiG1lwdJNgqjQm\nvoegRVyKpHv6Qg5O1hLPN17vUGHwg54KOY5Zo0rLzwKBgQDhRQLx+waqC4qb+RVh\nqauz5mJOM6hx4Ngz000J/vatSOVrrAAxupw3WtXoNE9PAxuYf8q+3BREyRuHDDqi\nukayn8omuR5xHppkHIxqMTvKpZikCM+3YpBLHyjCvF4lp31neVWdBE44Pd3y3bD5\nryTEsHZJ1Y3wUkTPFctd1BzEGwKBgQDETCVwdsyheOuWgjYmVew7kYhrWbMLwwa1\nO6hIGFol7qnG3GjFOFAJmBRaYoZZ8IPueelQZDVduy8+EybiYQSf39eefFN8jlam\n9JMjt5SEFh5D44fcttzuA5n+gXmw+N66lTpbXzbh/ncWTMWBQtEF2VjmEQcu1jWd\nkPwpAs/9OwKBgHKbJ5pweb19TbF4kbY0GhTWeuEKSwJUv+nt8F3Lhzg1w/J5eUfT\nhrJq1jTimA68qAd3zHA5i15LamPUhuhPGLS7sp7sw14NkcKo+47zKVY51WRuzy6f\nSIXPfm9EYimKArTn9/SAQkM+xnJO80C0KGKg3C1IJoRDdppcnjBIP7JNAoGAb/9C\nHTiq6DYltGn2m0jKz/Ho89bp4PwVB7JSAVBjnuDc3SlEXcITaGXstuUf4pDntVi5\nVbTW/fOesLwco2zXRqBgVXx55ccQiZFhoi9L/VDhU7qt+bAbvXEwm5Uj6WUVLz+V\nXCynE6osJ/0Fcwq8V6n6nsl4X7C4Rn5CYOPJ56ECgYB3DkJDNQPp+/RQCGliqs/c\ngfPK3pZ7TVnT22vWEV7qFd3fNZ0XwkUrmHUNtAWgJp3ljVUhTsocEDU0LSxjR5BG\nXTs5+8MMeHpoHP14YYsYPgYcs2f/8MAtXx16qCuxV6V10cwBexPah+T9/Rjxnr5r\nV4p+YJSQTilHwTcIKJzOgA==\n-----END PRIVATE KEY-----\n",
+  "client_email": "vibeque-api-access@vibeque-app-project.iam.gserviceaccount.com",
+  "client_id": "110992463517849723191",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/vibeque-api-access%40vibeque-app-project.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
