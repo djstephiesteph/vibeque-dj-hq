@@ -13,7 +13,6 @@ st.title("🎧 VibeQue DJ HQ — You Run the Vibe")
 import json
 scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
 creds_dict = json.loads(st.secrets["GOOGLE_CREDS"])
-from oauth2client.service_account import ServiceAccountCredentials
 creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
 client = gspread.authorize(creds)
 
