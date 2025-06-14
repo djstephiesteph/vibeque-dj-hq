@@ -9,8 +9,11 @@ st.set_page_config(page_title="VibeQue DJ HQ", layout="wide")
 st.title("🎧 VibeQue DJ HQ — You Run the Vibe")
 
 # --- AUTHENTICATION ---
+import json
+
 scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-creds = ServiceAccountCredentials.from_json_keyfile_name("creds.json", scope)
+creds_dict = json.loads(st.secrets["GOOGLE_CREDS"])
+creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
 client = gspread.authorize(creds)
 
 # --- LOAD SHEET ---
