@@ -22,7 +22,7 @@ worksheet = client.open_by_key(SHEET_ID).worksheet(SHEET_NAME)
 data = worksheet.get_all_records()
 
 df = pd.DataFrame(data)
-df.columns = df.columns.str.strip()
+df.columns = [str(col).strip() for col in df.columns]
 st.write("Columns in sheet:", df.columns.tolist())  # ✅ Debug
 
 
