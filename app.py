@@ -1,87 +1,59 @@
 import streamlit as st
 import pandas as pd
 import gspread
-import json
+from google.oauth2 import service_account
 from datetime import datetime
-from oauth2client.service_account import ServiceAccountCredentials
 
-# --- PAGE CONFIG ---
+# --- CONFIG ---
 st.set_page_config(page_title="VibeQue DJ HQ", layout="wide")
 st.title("🎧 VibeQue DJ HQ — You Run the Vibe")
 
 # --- AUTH ---
-scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-creds_dict = json.loads(st.secrets["GOOGLE_CREDS"])
-creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
+scope = ["https://www.googleapis.com/auth/spreadsheets", "https://www.googleapis.com/auth/drive"]
+creds = service_account.Credentials.from_service_account_info(
+    st.secrets["google_service_account"], scopes=scope
+)
 client = gspread.authorize(creds)
 
 # --- LOAD SHEET ---
-SHEET_ID = "1JkgaBwbmy7iT8iuEaekEIhWMyc4Su35GnFiRqw2pS9Y"
-SHEET_NAME = "Request Log"
+SHEET_ID = st.secrets["google_sheets"]["SHEET_ID"]
+SHEET_NAME = "Requests"
 worksheet = client.open_by_key(SHEET_ID).worksheet(SHEET_NAME)
 data = worksheet.get_all_records()
 df = pd.DataFrame(data)
 
-# --- CLEAN & PROCESS ---
-df.columns = df.columns.str.strip()  # Strip whitespace from column names
-
-# Validate required columns
-required_cols = ["Timestamp", "Song", "Artist", "Line Dance Name", "Mood", "Dance Level", "Submitted By", "Status", "Submission Type"]
-missing_cols = [col for col in required_cols if col not in df.columns]
-if missing_cols:
-    st.error(f"❌ Missing columns: {', '.join(missing_cols)}. Please check your Google Sheet.")
-    st.stop()
-
-# Timestamp formatting
-try:
-    df["Timestamp"] = pd.to_datetime(df["Timestamp"], errors='coerce')
-except Exception as e:
-    st.error("⚠️ Failed to parse Timestamp column.")
-    st.stop()
-
-# Determine Request Type
+# --- PROCESS ---
+df["Timestamp"] = pd.to_datetime(df["Timestamp"], errors='coerce')
 event_cutoff = datetime.now().replace(hour=18, minute=30, second=0, microsecond=0)
-df["Request Type"] = df["Timestamp"].apply(lambda t: "Pre-Request" if pd.notnull(t) and t < event_cutoff else "On-Demand")
+df["Request Type"] = df["Timestamp"].apply(lambda t: "Pre-Request" if t < event_cutoff else "On-Demand")
 
-# --- BADGES ---
-st.success("✅ Live Sync OK")
-st.caption(f"🕒 Last Sync: {datetime.now().strftime('%A, %B %d, %I:%M %p')}")
+# --- STATUS ---
+st.markdown("✅ **Live Sync OK**")
+st.caption(f"Last Sync: {datetime.now().strftime('%A, %B %d, %I:%M %p')}")
 
-# --- SIDEBAR FILTERS ---
+# --- FILTERS ---
 with st.sidebar:
     st.header("🔍 Filters")
     show_only_unplayed = st.checkbox("Only show unplayed")
-    selected_user = st.selectbox("Filter by submitter", ["All"] + sorted(df["Submitted By"].dropna().unique().tolist()))
+    selected_user = st.selectbox("Filter by user", ["All"] + sorted(df["User"].dropna().unique().tolist()))
 
-# --- FILTER LOGIC ---
+# --- APPLY FILTERS ---
 if show_only_unplayed:
     df = df[df["Status"] != "Played"]
 
 if selected_user != "All":
-    df = df[df["Submitted By"] == selected_user]
+    df = df[df["User"] == selected_user]
 
-# --- DISPLAY DYNAMIC CARDS ---
-st.subheader("📀 Current Request Queue")
+# --- DISPLAY QUEUE ---
+st.subheader("🎶 Request Queue")
+
 if df.empty:
-    st.info("No matching song requests right now.")
+    st.info("No current requests match the selected filters.")
 else:
-    for _, row in df.iterrows():
-        with st.container():
-            col1, col2, col3 = st.columns([2, 2, 1])
-            with col1:
-                st.markdown(f"**🎵 Song:** {row['Song']}")
-                st.markdown(f"**🕺🏾 Dance:** {row['Line Dance Name']}")
-                st.markdown(f"**🎤 Artist:** {row['Artist']}")
-            with col2:
-                st.markdown(f"**🧠 Mood:** {row['Mood']}")
-                st.markdown(f"**💃🏾 Level:** {row['Dance Level']}")
-                st.markdown(f"**📨 Submitted By:** {row['Submitted By']}")
-            with col3:
-                st.markdown(f"**🕒** {row['Timestamp'].strftime('%I:%M %p') if pd.notnull(row['Timestamp']) else 'N/A'}")
-                st.markdown(f"**⚙️ Type:** {row['Request Type']}")
-                st.markdown(f"**📍Status:** {row['Status']}")
-            st.markdown("---")
+    styled_df = df[["Timestamp", "User", "Song", "Line Dance Name", "Mood", "Dance Level", "Request Type"]]
+    styled_df.index = range(1, len(styled_df) + 1)
+    st.dataframe(styled_df, use_container_width=True, height=500)
 
 # --- FOOTER ---
 st.markdown("---")
-st.caption("Admin View • Powered by VibeQue 🎶 | #LETSWORK")
+st.caption("Powered by VibeQue 💃🏾🎶 | Admin View Only | #LETSWORK")
